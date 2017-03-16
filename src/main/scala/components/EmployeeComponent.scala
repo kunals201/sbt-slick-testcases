@@ -6,13 +6,13 @@ import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
 
 
-trait EmployeeTable  extends  MySqlConnector {
+trait EmployeeTable {
   this: DBProvider =>
 
   import driver.api._
 
 
-  class EmployeeTable(tag: Tag) extends Table[Employee](tag, "employees") {
+  class EmployeeTable(tag: Tag) extends Table[Employee](tag, "experienced_employee") {
     val id = column[Int]("id", O.PrimaryKey)
     val name = column[String]("name")
     val experience = column[Double]("experience")
@@ -59,4 +59,4 @@ trait EmployeeComponent extends EmployeeTable {
 }
 
 
-  object EmployeeComponent extends EmployeeComponent
+  object EmployeeComponent extends EmployeeComponent with  MySqlConnector

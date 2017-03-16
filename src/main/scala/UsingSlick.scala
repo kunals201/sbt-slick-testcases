@@ -34,7 +34,7 @@ object UsingSlick extends App {
   DependentComponent.insert(Dependent(1001, "kunal", "GrandFather", None))
   DependentComponent.insert(Dependent(1002, "anmol", "father", Some(28)))
   DependentComponent.insert(Dependent(1003, "vasu", "GrandSon", Some(18)))
-  val sortedListOfDependents = DependentComponent.sortByDependentName()
+  val sortedListOfDependents = DependentComponent.sortByDependentName
   val dependentList = Await.result(DependentComponent.getAll, Duration.Inf)
 
   println(dependentList)

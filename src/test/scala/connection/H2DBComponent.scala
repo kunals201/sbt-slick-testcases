@@ -10,9 +10,9 @@ import java.util.UUID
 trait H2DBComponent extends DBProvider{
   val driver = H2Profile
 
-  import driver.api._
+  import driver.api.Database
 
-  val randomDB = "jdbc:h2:mem:test" +
+  val randomDB = "jdbc:h2:mem:kunal" +
     UUID.randomUUID().toString + ";"
   val h2Url = randomDB + "MODE=MySql;DATABASE_TO_UPPER=false;INIT=RUNSCRIPT FROM 'src/test/resources/schema.sql'\\;RUNSCRIPT FROM 'src/test/resources/initialdata.sql'"
   println(s"\n\n~~~~~~~~~~~~~~~~~~~~~             $h2Url         ~~~~~~~~~~~~~~~~~~~~~~~\n\n")
