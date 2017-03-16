@@ -1,6 +1,8 @@
 package connections
+import java.util.UUID
 
-import slick.jdbc.JdbcProfile
+import slick.driver.JdbcProfile
+import slick.jdbc.{H2Profile, PostgresProfile}
 
 trait DBProvider {
 

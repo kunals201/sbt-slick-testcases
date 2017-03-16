@@ -4,7 +4,7 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import models._
 
-trait DependentTable extends EmployeeTable  with  MySqlConnector {
+trait DependentTable extends EmployeeTable  {
 
   this: DBProvider =>
 
@@ -15,7 +15,7 @@ trait DependentTable extends EmployeeTable  with  MySqlConnector {
     val name = column[String]("name")
     val relation = column[String]("relation")
     val age = column[Option[Int]]("age")
-    def dependentEmployeeFK = foreignKey("dependent_employee_fk",empId,employeeTableQuery)(_.id)
+    def dependentEmployeeFK = foreignKey("dependent_employee",empId,employeeTableQuery)(_.id,onUpdate = ForeignKeyAction.Restrict)
     def * =(empId,name,relation,age) <> (Dependent.tupled, Dependent.unapply)
   }
 
@@ -47,7 +47,10 @@ trait DependentComponent extends DependentTable{
     val query = dependentTableQuery.filter(x => x.empId === id).map(_.relation).update(relation)
     db.run(query)
   }
-
+  def updateName(id: Int, name: String) = {
+    val query = dependentTableQuery.filter(_.empId === id).map(_.name).update(name)
+    db.run(query)
+  }
   def getAll : Future[List[Dependent]] = db run {
     dependentTableQuery.to[List].result
   }
@@ -59,4 +62,4 @@ trait DependentComponent extends DependentTable{
   }
 
 }
-object DependentComponent extends DependentComponent
+object DependentComponent extends DependentComponent  with  MySqlConnector

@@ -12,7 +12,7 @@ trait EmployeeTable  extends  MySqlConnector {
   import driver.api._
 
 
-  class EmployeeTable(tag: Tag) extends Table[Employee](tag, "experienced_employee") {
+  class EmployeeTable(tag: Tag) extends Table[Employee](tag, "employees") {
     val id = column[Int]("id", O.PrimaryKey)
     val name = column[String]("name")
     val experience = column[Double]("experience")

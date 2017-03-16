@@ -2,7 +2,7 @@ package connections
 
 import slick.jdbc.MySQLProfile
 
-trait MySqlConnector extends DBProvider{
+trait MySqlConnector extends DBProvider {
   val driver = MySQLProfile
 
   import driver.api._
